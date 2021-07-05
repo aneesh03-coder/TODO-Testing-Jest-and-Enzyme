@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import  "./ToDos.css"
 
 
 function ToDos({todoList}) {
@@ -9,8 +10,8 @@ function ToDos({todoList}) {
             <div data-test="toDos">
                 {todoList && todoList.map(({todo,completed},index)=>{
                     return(
-                        <div key={index} id={index} class="todo" data-test="todo">
-                            <span data-test="title" class={!completed?'incomplete':'complete'}>{todo}</span>
+                        <div key={index} id={index} className="todo" data-test="todo">
+                            <span data-test="title" className={!completed?'incomplete':'complete'}>{todo}</span>
                             <span data-test="individualToDoCompleteStatus" id={`todo-${index}`}
                                   >
                                   {completed == false && '✔' }
