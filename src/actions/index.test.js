@@ -1,5 +1,13 @@
 import moxios from 'moxios';
-import {getQuotations} from "./index"
+import {getQuotations,toDoCompleted,actionTypes} from "./index"
+
+describe('toDoCompleted',()=>{
+    test('returns an action with type `TO_DO_COMPLETED`',()=>{
+        const action=toDoCompleted();
+        expect(action).toStrictEqual({type:actionTypes.TO_DO_COMPLETED})
+    })
+})
+
 
 describe('getQuotation',()=>{
     beforeEach(()=>{
