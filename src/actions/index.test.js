@@ -1,10 +1,10 @@
 import moxios from 'moxios';
-import {getQuotations,toDoCompleted,actionTypes} from "./index"
+import {getQuotations,listCompleted,actionTypes} from "./index"
 
 describe('toDoCompleted',()=>{
     test('returns an action with type `TO_DO_COMPLETED`',()=>{
-        const action=toDoCompleted();
-        expect(action).toStrictEqual({type:actionTypes.TO_DO_COMPLETED})
+        const action=listCompleted();
+        expect(action).toStrictEqual({type:actionTypes.LIST_COMPLETE})
     })
 })
 

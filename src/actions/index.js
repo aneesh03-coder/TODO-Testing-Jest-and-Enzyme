@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 export const actionTypes={
-    TO_DO_COMPLETED:'TO_DO_COMPLETED'
+    LIST_COMPLETE:'LIST_COMPLETE'
 }
 
-export const toDoCompleted=()=>{
-    return {type:actionTypes.TO_DO_COMPLETED};
+export const listCompleted=()=>{
+    return {type:actionTypes.LIST_COMPLETE};
 }
 
 
