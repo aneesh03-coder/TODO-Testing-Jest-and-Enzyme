@@ -24,7 +24,7 @@ function App() {
     <div className="App" data-test="component-app">  
     <h1 style={{fontSize:80}}>To Do App</h1> 
       <h3>{quotation}</h3>   
-      <Input listComplete={listComplete}/>
+      <Input />
       <Congrats listComplete={listComplete}/>
       <ToDos todoList={todoList} />
     </div>

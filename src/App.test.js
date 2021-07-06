@@ -1,17 +1,18 @@
 import React from 'react';
 import {mount} from 'enzyme';
-import { findByTestAttr } from './test/testUtils';
+import { findByTestAttr,storeFactory } from './test/testUtils';
 import App from './App';
+import {Provider} from "react-redux"
 
 //activate global mock to make sure getquotations doesnt make the network call
 
 jest.mock('./actions');
 import { getQuotations as mockGetQuotations } from './actions';
 
-const setup=()=>{
-
+const setup=(initialState={listComplete:false})=>{
+    const store=storeFactory(initialState);
   //We need to run mount because we are testing for useEffect also
-    return mount(<App/>);
+    return mount(<Provider store={store}><App/></Provider>);
 }
 
 test('renders without error', () => {

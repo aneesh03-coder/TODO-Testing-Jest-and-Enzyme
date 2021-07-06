@@ -1,13 +1,13 @@
 import React from "react";
 import Input from "./Input";
-import {shallow} from "enzyme";
-import { findByTestAttr } from "./test/testUtils";
+import {shallow,mount} from "enzyme";
+import { findByTestAttr,storeFactory } from "./test/testUtils";
+import {Provider} from 'react-redux'
 
-const setup=(listComplete=false)=>{
-    return shallow(<Input listComplete={listComplete}/>);
+const setup=(initialState={listComplete:false})=>{
+    const store=storeFactory(initialState);
+    return mount(<Provider store={store}><Input/></Provider>);
 }
-
-
 
 describe('state controlled input field',()=>{
     let originalUseState;
@@ -43,7 +43,7 @@ describe('render',()=>{
     describe('listComplete is true',()=>{
         let wrapper;
         beforeEach(()=>{
-            wrapper=setup(true);
+            wrapper=setup({listComplete:true});
         })
         test('Input renders without error',()=>{ 
             const inputComponent=findByTestAttr(wrapper,"component-input");
@@ -61,7 +61,7 @@ describe('render',()=>{
     describe('listComplete is false',()=>{
         let wrapper;
         beforeEach(()=>{
-            wrapper=setup(false);
+            wrapper=setup({listComplete:false});
         })
         test('Input renders without error',()=>{
             const inputComponent=findByTestAttr(wrapper,"component-input");

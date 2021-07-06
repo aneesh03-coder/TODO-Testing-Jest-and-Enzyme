@@ -1,7 +1,10 @@
 import React from 'react'
+import {useSelector} from 'react-redux'
 
-function Input({listComplete=false}) {
+
+function Input() {
     const [toDo,setToDo]=React.useState("");
+    const listComplete=useSelector(state=>state.listComplete)
 
     return (
         <div data-test="component-input">
