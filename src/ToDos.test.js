@@ -1,17 +1,19 @@
 import React from 'react'
-import {shallow} from 'enzyme'
-import { findByTestAttr,checkProps } from './test/testUtils'
+import {shallow,mount} from 'enzyme'
+import { findByTestAttr,checkProps,storeFactory } from './test/testUtils'
 import ToDos from './ToDos'
+import { Provider } from 'react-redux'
 
-const defaultProps={
+let defaultProps={
     todoList:[
         {todo:"Hello World",completed:false},
     ]
 }
 
-const setup=(props={})=>{
-    const setupProps={...defaultProps,...props};
-    return shallow(<ToDos {...setupProps}/>)
+const setup=(initialState={listComplete:false})=>{
+    const setupProps={...defaultProps};
+    const store=storeFactory(initialState);
+    return mount(<Provider store={store}><ToDos {...setupProps}/></Provider>)
 }
 
 test('does not throw warning with expected props',()=>{
@@ -31,8 +33,10 @@ test('Renders the the main title without error',()=>{
 })
 
 test('If there are no toDos entered, the toDo divs wont be there',()=>{
-    const wrapper=setup({todoList:[]})
-    const todo=findByTestAttr(wrapper,'todo');
+    
+    const store1=storeFactory({listComplete:false});
+    const wrapper1= mount(<Provider store={store1}><ToDos todoList={[]}/></Provider>)
+    const todo=findByTestAttr(wrapper1,'todo');
     expect(todo.length).toBe(0);
 })
 
@@ -70,12 +74,12 @@ describe('If there are toDos entered',()=>{
         describe('If the todo is completed',()=>{
             
             beforeEach(()=>{
-                
-                const wrapper=setup({
+                defaultProps={
                     todoList:[
                         {todo:"Hello World",completed:true},
                     ]
-                })
+                }
+                const wrapper=setup({listComplete:true})
                 individualToDo=findByTestAttr(wrapper,'todo')
                 individualToDoTitle=findByTestAttr(wrapper,'title')
                 individualToDoCompleteStatus=findByTestAttr(wrapper,'individualToDoCompleteStatus');
@@ -97,16 +101,17 @@ describe('If there are toDos entered',()=>{
 
     })
     test('If three toDO Items entered three todo item should be in the list',()=>{
-        const todoList=[
-            {todo:"Hello World",completed:true},
-            {todo:"Hello World",completed:true},
-            {todo:"Hello World",completed:true},
-        ]
+        defaultProps={
+            todoList:[
+                {todo:"Hello World",completed:true},
+                {todo:"Hello World",completed:true},
+                {todo:"Hello World",completed:true},
+            ]
+        }
+        
 
-        const wrapper=setup({
-            todoList
-        })
+        const wrapper=setup({listComplete:true})
         const toDoNode=findByTestAttr(wrapper,'todo');
-        expect(toDoNode.length).toBe(todoList.length)
+        expect(toDoNode.length).toBe(defaultProps.todoList.length)
     })
 })

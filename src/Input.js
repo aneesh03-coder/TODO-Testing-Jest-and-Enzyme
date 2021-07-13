@@ -1,11 +1,11 @@
 import React from 'react'
-import {useSelector} from 'react-redux'
-
+import {useSelector,useDispatch} from 'react-redux'
+import {addToDo} from "./actions/index"
 
 function Input() {
     const [toDo,setToDo]=React.useState("");
     const listComplete=useSelector(state=>state.listComplete)
-
+    const dispatch=useDispatch();
     return (
         <div data-test="component-input">
     {!listComplete&&           
@@ -20,6 +20,7 @@ function Input() {
                     data-test="submit-button"
                     onClick={(evt)=>{                        
                         evt.preventDefault()
+                        dispatch(addToDo(toDo))
                         setToDo("")
                             }
                        }>

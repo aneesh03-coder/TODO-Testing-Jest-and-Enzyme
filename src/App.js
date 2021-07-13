@@ -5,12 +5,12 @@ import Input from "./Input"
 import Congrats from "./Congrats"
 import {useEffect} from "react";
 import {getQuotations,getQuotation} from "./actions/index"
-
+import {useSelector} from 'react-redux'
 
 function App() {
   //TODO:get props from the shared state
-    const listComplete=false;
-    const todoList=[];
+    const listComplete=useSelector(state => state.listComplete)
+    const todoList = useSelector(state => state.toDos)
     const [quotation,setQuotation]=React.useState("");
   
     useEffect(async ()=>{
