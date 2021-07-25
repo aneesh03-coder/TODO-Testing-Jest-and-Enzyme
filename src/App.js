@@ -13,9 +13,19 @@ function App() {
     const todoList = useSelector(state => state.toDos)
     const [quotation,setQuotation]=React.useState("");
   
-    useEffect(async ()=>{
-      const allQuotations= await getQuotations();
-        setQuotation(getQuotation(allQuotations))
+    useEffect( ()=>{
+      const allQuotations= async ()=>{
+        try{
+          let quotations=await getQuotations();
+          setQuotation(getQuotation(quotations))
+        }catch(Err){
+          
+        }
+        
+      
+      } 
+         allQuotations();
+        
         
     },[])
 

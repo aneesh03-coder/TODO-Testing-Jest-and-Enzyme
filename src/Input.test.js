@@ -25,7 +25,7 @@ describe('state controlled input field',()=>{
         React.useState=jest.fn(()=>["",mockSetToDo]);
         wrapper=setup();
         const inputBox=findByTestAttr(wrapper,'input-box');
-        console.log(inputBox.debug())
+        // console.log(inputBox.debug())
         const mockOnChangeEvent={target:{value:"My first to-Do"}}
         inputBox.simulate('change',mockOnChangeEvent);
         expect(mockSetToDo).toHaveBeenCalledWith("My first to-Do");

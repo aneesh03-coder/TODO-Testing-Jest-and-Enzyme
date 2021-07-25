@@ -16,9 +16,9 @@ describe('getQuotation',()=>{
     afterEach(()=>{
         moxios.uninstall();
     })
-    test('quotation is send from the function',()=>{
-        moxios.wait(()=>{
-            const request=moxios.requests.mostRecent();
+    test('quotation is send from the function', async ()=>{
+          await  moxios.wait(async ()=>{
+            const request=await moxios.requests.mostRecent();
             request.respondWith({
                 status:200,
                 response:'My mama always said, life is like a box of chocolates. You never know what youre gonna get.'
@@ -26,11 +26,10 @@ describe('getQuotation',()=>{
         });
 
         //update to test app in Redux/context sections
-        return getQuotations()
+        return await  getQuotations()
             .then((quotation)=>{
-                console.log(quotation)
                 expect(quotation).toBe('My mama always said, life is like a box of chocolates. You never know what youre gonna get.')
-            }).catch(error=>{throw error});        
+            }).catch(error=> error);        
 
     })
 })

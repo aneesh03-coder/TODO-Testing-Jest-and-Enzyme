@@ -24,7 +24,7 @@ export const deleteTo=(toDo)=>{
     
     return function(dispatch,getState){
         const filteredList=filterToDoList(getState().toDos,toDo);
-        console.log(filteredList)
+        // console.log(filteredList)
         dispatch({
             type:actionTypes.DELETE_TODO,
             payload:filteredList
@@ -40,7 +40,7 @@ export const completeToDo=(toDo)=>{
             payload:filteredList
         })
         let notCompleted=0;
-        console.log(filteredList)
+        // console.log(filteredList)
         filteredList.map((todo)=>{
             if(!todo.completed){
                 notCompleted+=1;
@@ -48,7 +48,7 @@ export const completeToDo=(toDo)=>{
         })
         
         if(notCompleted == 0){
-            console.log("Is this getting called")
+        
             dispatch({
                 type:actionTypes.LIST_COMPLETE
             })
@@ -60,14 +60,19 @@ export const completeToDo=(toDo)=>{
 
 
 
-export const getQuotations=()=>{
+export const getQuotations=async ()=>{
     //return response from server
-    return axios.get('https://type.fit/api/quotes')
-        .then(response=>response.data)
-            .catch(error=>{throw error})        
+    try{
+        const response= await axios.get('https://type.fit/api/quotes');
+    const data=response.data;
+     return data;  
+    }catch(err){
+        return err;
+    }
+          
 }
 
 export const getQuotation=(quotations)=>{
-    const randomNumber=Math.floor(Math.random()*50);
+    const randomNumber=Math.floor(Math.random()*25);
     return quotations[randomNumber].text;
 }
